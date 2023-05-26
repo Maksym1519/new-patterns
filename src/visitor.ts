@@ -38,3 +38,5 @@ class ForeignerClient implements Client {
  const foreigner = new ForeignerClient()
  console.log(mobile.accept(national))
  console.log(comp.accept(national))
+ console.log(mobile.accept(foreigner))
+ console.log(comp.accept(foreigner))

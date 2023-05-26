@@ -9,9 +9,6 @@ class SpaceLab {
     addStudent(student) {
         this.students.push(student);
     }
-    removeStudent(student) {
-        this.students.filter(el => !(el instanceof student));
-    }
     notifyStudent() {
         for (let i of this.students) {
             i.handlevent(this.news);
@@ -20,11 +17,14 @@ class SpaceLab {
 }
 class Student {
     handlevent(news) {
-        console.log(`Spacelab news: ${news}`);
+        return console.log(`Spacelab news: ${news}`);
     }
 }
 const spacelab = new SpaceLab();
-spacelab.addStudent(new Student());
+const maksym = new Student();
+const marina = new Student();
+spacelab.addStudent(maksym);
+spacelab.addStudent(marina);
 spacelab.setNews("New courses is available");
 console.log(spacelab.notifyStudent());
 export {};

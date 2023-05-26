@@ -1,6 +1,6 @@
 //import { Interface } from "readline"
 
-class AvadaMediaInterface {
+class AvadaMediaManager {
     width: number
     sidebar: boolean = false
     constructor(width: number) {
@@ -32,7 +32,7 @@ class AvadaMediaInterface {
         console.log("AvadaMedia: Your order add to ...")
        }
 }
-class RozetkaInterface {
+class RozetkaManager {
     width: number
     sidebar: boolean = false
     constructor(width: number) {
@@ -56,9 +56,9 @@ class RozetkaInterface {
 }
 
 class SiteInterfaceFacade {
- private avada: AvadaMediaInterface
- private rozetka: RozetkaInterface
- constructor(avada: AvadaMediaInterface,rozetka: RozetkaInterface) {
+ private avada: AvadaMediaManager
+ private rozetka: RozetkaManager
+ constructor(avada: AvadaMediaManager,rozetka: RozetkaManager) {
   this.avada = avada
   this.rozetka = rozetka
  }   
@@ -72,8 +72,8 @@ class SiteInterfaceFacade {
   this.rozetka.importMain()
  }
 }
-const avada = new AvadaMediaInterface(320)
-const rozetka = new RozetkaInterface(1440)
+const avada = new AvadaMediaManager(320)
+const rozetka = new RozetkaManager(1440)
 const siteFacade = new SiteInterfaceFacade(avada,rozetka)
 console.log(siteFacade.orderManager())
 //console.log(siteFacade.setDesctop())

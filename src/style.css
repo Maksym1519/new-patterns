@@ -1,0 +1,21 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30vw;
+    height: 100px;
+    margin: 100px auto;
+    border: 2px solid black;
+    padding: 0 20px;
+}
+.number {
+    width: 15%;
+}
+.result {
+    width: 45%;
+    height: 50px;
+    border: 2px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

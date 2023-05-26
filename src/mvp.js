@@ -1,4 +1,3 @@
-
 /*public class Movie {
   private String title;
   private String description;
@@ -146,47 +145,53 @@ const presenter = new UserPresenter(model, view);
 presenter.updateView();
 */
 //model-------------------------------------------------------
-class StudentModel {
-   constructor(private name: string, private course: string) {}
-    getName(): string {
-      return this.name
+var StudentModel = /** @class */ (function () {
+    function StudentModel(name, course) {
+        this.name = name;
+        this.course = course;
     }
-    getCourse(): string {
-      return this.course
-    }
-}
-//view-----------------------------------------------------------
-interface StudentView {
-  setName(name: string): void
-  setCourse(course: string): void
-}
+    StudentModel.prototype.getName = function () {
+        return this.name;
+    };
+    StudentModel.prototype.getCourse = function () {
+        return this.course;
+    };
+    return StudentModel;
+}());
 //presenter-----------------------------------------------
-class StudentPresenter {
-  constructor(private model: StudentModel, private view: StudentView) {}
-  updateView(): void {
-   this.view.setName(this.model.getName())
-   this.view.setCourse(this.model.getCourse())
-  }
-  setName(name: string): void {
-    this.model = new StudentModel(name,this.model.getCourse())
+var StudentPresenter = /** @class */ (function () {
+    function StudentPresenter(model, view) {
+        this.model = model;
+        this.view = view;
     }
-    setCourse(course: string): void {
-      this.model = new StudentModel(this.model.getName(),course)
-    }
-}
+    StudentPresenter.prototype.updateView = function () {
+        this.view.setName(this.model.getName());
+        this.view.setCourse(this.model.getCourse());
+    };
+    StudentPresenter.prototype.setName = function (name) {
+        this.model = new StudentModel(name, this.model.getCourse());
+    };
+    StudentPresenter.prototype.setCourse = function (course) {
+        this.model = new StudentModel(this.model.getName(), course);
+    };
+    return StudentPresenter;
+}());
 //using---------------------------------------------------------
-class ConsoleStudentsView implements StudentView {
-  setName(name: string): void {
-    console.log(`Name: ${name}`)
-  }
-  setCourse(course: string): void {
-    console.log(`Course: ${course}`)
-  }
-}
-const student = new StudentModel("Maksym","React")
-const view = new ConsoleStudentsView()
-const presenter = new StudentPresenter(student,view)
-presenter.updateView()
-presenter.setName("Marina")
-presenter.setCourse("Python")
-presenter.updateView()
+var ConsoleStudentsView = /** @class */ (function () {
+    function ConsoleStudentsView() {
+    }
+    ConsoleStudentsView.prototype.setName = function (name) {
+        console.log("Name: ".concat(name));
+    };
+    ConsoleStudentsView.prototype.setCourse = function (course) {
+        console.log("Course: ".concat(course));
+    };
+    return ConsoleStudentsView;
+}());
+var student = new StudentModel("Maksym", "React");
+var view = new ConsoleStudentsView();
+var presenter = new StudentPresenter(student, view);
+presenter.updateView();
+presenter.setName("Marina");
+presenter.setCourse("Python");
+presenter.updateView();

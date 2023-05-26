@@ -20,7 +20,7 @@ var TrafficLight = /** @class */ (function () {
         this.change(state);
     }
     TrafficLight.prototype.change = function (state) {
-        console.log("TrafficLight is changing in to the state ".concat((state).constructor.name, "."));
+        console.log("TrafficLight is changing in to the state ".concat(state.constructor.name, "."));
         this.state = state;
         this.state.setTraficLight(this);
     };
@@ -31,7 +31,6 @@ var TrafficLight = /** @class */ (function () {
 }());
 var State = /** @class */ (function () {
     function State() {
-        this.trafficlight = trafficlight;
     }
     State.prototype.setTraficLight = function (trafficlight) {
         this.trafficlight = trafficlight;

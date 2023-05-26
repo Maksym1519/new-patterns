@@ -10,7 +10,10 @@ var SpaceLab = /** @class */ (function () {
         this.students.push(student);
     };
     SpaceLab.prototype.removeStudent = function (student) {
-        this.students.filter(function (el) { return !(el instanceof student); });
+        var index = this.students.indexOf(student);
+        if (index !== -1) {
+            this.students.splice(index, 1);
+        }
     };
     SpaceLab.prototype.notifyStudent = function () {
         for (var _i = 0, _a = this.students; _i < _a.length; _i++) {
@@ -24,11 +27,14 @@ var Student = /** @class */ (function () {
     function Student() {
     }
     Student.prototype.handlevent = function (news) {
-        console.log("Spacelab news: ".concat(news));
+        return console.log("Spacelab news: ".concat(news));
     };
     return Student;
 }());
 var spacelab = new SpaceLab();
-spacelab.addStudent(new Student());
+var maksym = new Student();
+var marina = new Student();
+spacelab.addStudent(maksym);
+spacelab.addStudent(marina);
 spacelab.setNews("New courses is available");
 console.log(spacelab.notifyStudent());

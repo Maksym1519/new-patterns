@@ -1,49 +1,88 @@
+/*
 //controler-----------------------------------------------------------
-var Controller = /** @class */ (function () {
-    function Controller() {
-        this.layer = new DbLayer();
-        this.student = this.layer.getStudent();
-        this.view = new ConsoleView();
+class Controller {
+    layer: ModelLayer = new DbLayer()
+    student: Student = this.layer.getStudent()
+    view: View = new ConsoleView()
+    execute() {
+     this.view.showStudent(this.student)
     }
-    Controller.prototype.execute = function () {
-        this.view.showStudent(this.student);
-    };
-    return Controller;
-}());
-var DbLayer = /** @class */ (function () {
-    function DbLayer() {
+}
+//model------------------------------------------------------------
+interface ModelLayer {
+    getStudent(): Student
+}
+class DbLayer implements ModelLayer {
+    getStudent(): Student {
+        return new Student()
     }
-    DbLayer.prototype.getStudent = function () {
-        return new Student();
-    };
-    return DbLayer;
-}());
-var Student = /** @class */ (function () {
-    function Student() {
-        this.name = 'Maksym';
-        this.course = 'React';
+}
+class Student {
+    name: string = 'Maksym'
+    course: string = 'React'
+    getName(): string {
+        return this.name
     }
-    Student.prototype.getName = function () {
-        return this.name;
-    };
-    Student.prototype.setName = function (name) {
+    setName(name: string): void {
+        this.name = name
+    }
+    getCourse(): string {
+        return this.course
+    }
+    setCourse(course: string): void {
+        this.course = course
+    }
+}
+//view-------------------------------------------------
+interface View {
+    showStudent(student: Student): void
+}
+class ConsoleView implements View {
+    showStudent(student: Student): void {
+        console.log(`student name: ${student.getName()}; course: ${student.getCourse()}`)
+    }
+}
+
+const controler = new Controller()
+controler.execute()
+ */
+//model-----------------------------------------------
+var StudentModel = /** @class */ (function () {
+    function StudentModel(name, course) {
         this.name = name;
-    };
-    Student.prototype.getCourse = function () {
-        return this.course;
-    };
-    Student.prototype.setCourse = function (course) {
         this.course = course;
-    };
-    return Student;
-}());
-var ConsoleView = /** @class */ (function () {
-    function ConsoleView() {
     }
-    ConsoleView.prototype.showStudent = function (student) {
-        console.log("student name: ".concat(student.getName(), "; course: ").concat(student.getCourse()));
-    };
-    return ConsoleView;
+    return StudentModel;
 }());
-var controler = new Controller();
-controler.execute();
+//view------------------------------------------------------
+var StudentView = /** @class */ (function () {
+    function StudentView() {
+    }
+    StudentView.prototype.render = function (student) {
+        console.log("Name: ".concat(student.name, "; Course: ").concat(student.course));
+    };
+    return StudentView;
+}());
+//controler--------------------------------------------------
+var StudentControler = /** @class */ (function () {
+    function StudentControler(model, view) {
+        this.model = model;
+        this.view = view;
+    }
+    StudentControler.prototype.setName = function (name) {
+        this.model.name = name;
+    };
+    StudentControler.prototype.setCourse = function (course) {
+        this.model.course = course;
+    };
+    StudentControler.prototype.updateView = function () {
+        this.view.render(this.model);
+    };
+    return StudentControler;
+}());
+var user = new StudentModel("Maksym", "React");
+var view = new StudentView();
+var controller = new StudentControler(user, view);
+controller.setName("Marina");
+controller.setCourse("React");
+controller.updateView();

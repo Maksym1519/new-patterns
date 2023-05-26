@@ -1,3 +1,4 @@
+/*
 //controler-----------------------------------------------------------
 class Controller {
     layer: ModelLayer = new DbLayer()
@@ -44,4 +45,45 @@ class ConsoleView implements View {
 
 const controler = new Controller()
 controler.execute()
- 
+ */
+
+//model-----------------------------------------------
+class StudentModel {
+    name: string
+    course: string
+    constructor(name: string, course: string) {
+    this.name = name
+    this.course = course
+    }
+}
+//view------------------------------------------------------
+class StudentView {
+    constructor() {}
+    render(student: StudentModel) {
+        console.log(`Name: ${student.name}; Course: ${student.course}`)
+    }
+}
+//controler--------------------------------------------------
+class StudentControler {
+    model: StudentModel
+    view: StudentView
+    constructor(model: StudentModel, view: StudentView) {
+    this.model = model
+    this.view = view
+    }
+    setName(name: string) {
+        this.model.name = name
+    }
+    setCourse(course: string) {
+        this.model.course = course
+    }
+    updateView() {
+        this.view.render(this.model)
+    }
+}
+const user = new StudentModel("Maksym","React")
+const view = new StudentView()
+const controller = new StudentControler(user,view)
+controller.setName("Marina") 
+controller.setCourse("React")
+controller.updateView()

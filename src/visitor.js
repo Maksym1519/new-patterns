@@ -42,3 +42,5 @@ var national = new NationalClient();
 var foreigner = new ForeignerClient();
 console.log(mobile.accept(national));
 console.log(comp.accept(national));
+console.log(mobile.accept(foreigner));
+console.log(comp.accept(foreigner));

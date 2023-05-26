@@ -1,6 +1,6 @@
 //context--------------------------------------
 class Calculator {
- private functions: Functions
+ private functions: Functions 
  setStrategy(functions: Functions) {
     this.functions = functions
  }

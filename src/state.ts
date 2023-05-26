@@ -6,15 +6,16 @@ class TrafficLight {
     this.change(state)
    }
    change(state: State): void {
-    console.log(`TrafficLight is changing in to the state ${(<any>state).constructor.name}.`)
+    console.log(`TrafficLight is changing in to the state ${(<State>state).constructor.name}.`)
     this.state = state
     this.state.setTraficLight(this)
    }
    
-   request():void {
+   request(): void {
     this.state.handle()
    }
    }
+
 abstract class State {
 protected trafficlight: TrafficLight
 setTraficLight(trafficlight: TrafficLight) {
@@ -22,6 +23,7 @@ setTraficLight(trafficlight: TrafficLight) {
 }
 abstract handle(): void
 }
+
 class GreenLight extends State {
     handle(): void {
         console.log("Green light will be changed on the yellow light")

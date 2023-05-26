@@ -88,43 +88,107 @@ class MoviePresenter {
 class MovieModel {
 
 }
-*/
+
 class UserModel {
-    constructor(name, email) {
+  private name: string;
+  private email: string;
+
+  constructor(name: string, email: string) {
+    this.name = name;
+    this.email = email;
+  }
+
+  getName() {
+    return this.name;
+  }
+
+  getEmail() {
+    return this.email;
+  }
+}
+
+// Представление (View) - отображает данные для пользователя
+interface UserView {
+  setName(name: string): void;
+  setEmail(email: string): void;
+}
+
+// Презентер (Presenter) - обрабатывает взаимодействие пользователя и модели
+class UserPresenter {
+  private model: UserModel;
+  private view: UserView;
+
+  constructor(model: UserModel, view: UserView) {
+    this.model = model;
+    this.view = view;
+  }
+
+  updateView() {
+    const name = this.model.getName();
+    const email = this.model.getEmail();
+    this.view.setName(name);
+    this.view.setEmail(email);
+  }
+}
+
+// Пример использования паттерна MVP
+const model = new UserModel('John Doe', 'johndoe@example.com');
+const view = {
+  setName(name: string) {
+    console.log(`Name: ${name}`);
+  },
+  setEmail(email: string) {
+    console.log(`Email: ${email}`);
+  },
+};
+const presenter = new UserPresenter(model, view);
+presenter.updateView();
+*/
+//model-------------------------------------------------------
+class StudentModel {
+    constructor(name, course) {
         this.name = name;
-        this.email = email;
+        this.course = course;
     }
     getName() {
         return this.name;
     }
-    getEmail() {
-        return this.email;
+    getCourse() {
+        return this.course;
     }
 }
-// Презентер (Presenter) - обрабатывает взаимодействие пользователя и модели
-class UserPresenter {
+//presenter-----------------------------------------------
+class StudentPresenter {
     constructor(model, view) {
         this.model = model;
         this.view = view;
     }
     updateView() {
-        const name = this.model.getName();
-        const email = this.model.getEmail();
-        this.view.setName(name);
-        this.view.setEmail(email);
+        this.view.setName(this.model.getName());
+        this.view.setCourse(this.model.getCourse());
+    }
+    setName(name) {
+        this.model = new StudentModel(name, this.model.getCourse());
+    }
+    setCourse(course) {
+        this.model = new StudentModel(this.model.getName(), course);
     }
 }
-// Пример использования паттерна MVP
-const model = new UserModel('John Doe', 'johndoe@example.com');
-const view = {
+//using---------------------------------------------------------
+class ConsoleStudentsView {
     setName(name) {
         console.log(`Name: ${name}`);
-    },
-    setEmail(email) {
-        console.log(`Email: ${email}`);
-    },
-};
-const presenter = new UserPresenter(model, view);
+    }
+    setCourse(course) {
+        console.log(`Course: ${course}`);
+    }
+}
+const student = new StudentModel("Maksym", "React");
+const view = new ConsoleStudentsView();
+const presenter = new StudentPresenter(student, view);
+presenter.updateView();
+presenter.setName("Marina");
+presenter.setCourse("Python");
 presenter.updateView();
 export {};
 //# sourceMappingURL=mvp.js.map

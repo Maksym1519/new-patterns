@@ -40,39 +40,46 @@ autonews.register(new Maksym())
  */
     interface Observed {
     addStudent(student: Observer): void
-    removeStudent(student: Observer): void
     notifyStudent(): void
     }
     class SpaceLab implements Observed {
         news: string = ''
-        students: Array<any> = []
+        students: Array<Student> = []
         setNews(news: string) {
             this.news = news
         }
         addStudent(student: Observer) {
          this.students.push(student)
         }
-        removeStudent(student: any) {
-            this.students.filter(el => !(el instanceof student))
+        removeStudent(student: Observer) {
+            const index = this.students.indexOf(student);
+            if (index !== -1) {
+            this.students.splice(index, 1);
+    }
         }
-        notifyStudent() {
+            notifyStudent() {
             for(let i of this.students) {
-             i.handlevent(this.news)
+         i.handlevent(this.news)
             }
         }
     }
     interface Observer {
-     handlevent(news: string): any
+     handlevent(news: string): void
     }
 
     class Student implements Observer {
             handlevent(news: string) {
-            console.log(`Spacelab news: ${news}`)
+            return  console.log(`Spacelab news: ${news}`)
         }
     }
 
     const spacelab = new SpaceLab()
-    spacelab.addStudent(new Student())
+    const maksym = new Student()
+    const marina = new Student()
+    spacelab.addStudent(maksym)
+    spacelab.addStudent(marina)
     spacelab.setNews("New courses is available")
     console.log(spacelab.notifyStudent())
+   
+   
   
